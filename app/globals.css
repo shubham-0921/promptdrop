@@ -1,26 +1,199 @@
 @import "tailwindcss";
 
+/* ── Retro Design Tokens ─────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg:          #f5f2e8;   /* warm cream paper */
+  --card:        #ffffff;
+  --border:      #d0ccbf;
+  --border-hard: #1a1a1a;   /* stays dark — great for retro on light */
+  --text:        #0c0c0c;
+  --text-muted:  #888878;
+  --yellow:      #D4920A;   /* amber — readable as text AND button bg on light */
+  --pink:        #D4004E;
+  --cyan:        #007BAA;
+  --green:       #1a7a00;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--font-mono);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base ────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html { font-size: 17px; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono), "Courier New", monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  /* Dot grid — the classic retro game texture */
+  background-image: radial-gradient(circle, #c8c4b4 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Retro Card ──────────────────────────────────────────────────── */
+.card {
+  background: var(--card);
+  border: 2px solid var(--border-hard);
+}
+.card-y  { box-shadow: 4px 4px 0 var(--yellow); }
+.card-p  { box-shadow: 4px 4px 0 var(--pink);   }
+.card-c  { box-shadow: 4px 4px 0 var(--cyan);   }
+.card-w  { box-shadow: 4px 4px 0 rgba(0,0,0,0.12); }
+.card-sm { box-shadow: 3px 3px 0 var(--yellow); }
+
+/* ── Pixel Logo ──────────────────────────────────────────────────── */
+.pixel {
+  font-family: var(--font-pixel), monospace;
+  letter-spacing: 0.04em;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono), monospace;
+  font-weight: 800;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: 2px solid;
+  transition: transform 0.08s, box-shadow 0.08s;
+  user-select: none;
+}
+.btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: #000;
+  border-color: #000;
+  box-shadow: 3px 3px 0 #000;
+}
+.btn-primary:hover:not(:disabled) {
+  background: #c07800;
+}
+.btn-primary:active:not(:disabled) {
+  box-shadow: 1px 1px 0 #000;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border-hard);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+}
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+.btn-secondary:active:not(:disabled) {
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+.btn-ghost:hover:not(:disabled) {
+  color: var(--yellow);
+}
+
+/* sizes */
+.btn-sm { padding: 7px 16px;  font-size: 13px; }
+.btn-md { padding: 10px 20px; font-size: 14px; }
+.btn-lg { padding: 14px 28px; font-size: 15px; }
+
+/* ── Inputs ──────────────────────────────────────────────────────── */
+.input-retro {
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--border-hard);
+  color: var(--text);
+  font-family: var(--font-mono), monospace;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input-retro::placeholder { color: var(--text-muted); }
+.input-retro:focus { border-color: var(--yellow); }
+.input-retro:disabled { opacity: 0.5; }
+.input-retro.error { border-color: var(--pink); }
+
+/* ── Labels ──────────────────────────────────────────────────────── */
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-family: var(--font-mono), monospace;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────── */
+.retro-divider {
+  border: none;
+  border-top: 2px dashed var(--border);
+  margin: 0;
+}
+
+/* ── Scanline overlay (subtle) ───────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.04) 2px,
+    rgba(0,0,0,0.04) 4px
+  );
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-hard); }
+::-webkit-scrollbar-thumb:hover { background: var(--yellow); }
+
+/* ── Animations ──────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.blink { animation: blink 1.1s step-end infinite; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+.fade-up { animation: fadeUp 0.25s ease both; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
