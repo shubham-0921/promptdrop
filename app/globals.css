@@ -51,6 +51,15 @@ body {
 .card-w  { box-shadow: 4px 4px 0 rgba(0,0,0,0.12); }
 .card-sm { box-shadow: 3px 3px 0 var(--yellow); }
 
+/* ── AI Selector Highlight ───────────────────────────────────────── */
+@keyframes ai-highlight {
+  0%, 100% { box-shadow: 4px 4px 0 var(--cyan); }
+  40%       { box-shadow: 0 0 0 4px var(--cyan), 4px 4px 0 var(--cyan); border-color: var(--cyan); }
+}
+.ai-highlight {
+  animation: ai-highlight 0.6s ease-in-out 3;
+}
+
 /* ── Pixel Logo ──────────────────────────────────────────────────── */
 .pixel {
   font-family: var(--font-pixel), monospace;

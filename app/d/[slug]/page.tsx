@@ -55,8 +55,11 @@ export default async function DropPage({ params }: PageProps) {
         </div>
 
         {/* AI selector */}
-        <div className="card card-c p-5 mb-8 fade-up">
-          <p className="label mb-4">▶ Choose your AI</p>
+        <div id="ai-selector" className="card card-c p-5 mb-8 fade-up">
+          <p className="label mb-1">▶ Choose your AI</p>
+          <p className="text-xs text-[var(--text-muted)] font-mono mb-4">
+            Use the AI you use the most — run the prompt, get your result, then submit it below
+          </p>
           <AISelector promptBody={prompt.body} slug={slug} />
         </div>
 
