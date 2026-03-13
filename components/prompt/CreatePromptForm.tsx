@@ -4,13 +4,37 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveCreatorToken } from '@/lib/storage';
 
-const EXAMPLES = [
+const ALL_EXAMPLES = [
   { emoji: '🦁', text: 'Knowing me, what living animal would I be?' },
   { emoji: '🌍', text: 'Knowing me, which country would I be?' },
   { emoji: '⏳', text: 'Knowing me, what historical era would I have thrived in?' },
   { emoji: '🌦️', text: 'Knowing me, what type of weather would I be?' },
   { emoji: '🎭', text: 'Knowing me, what fictional character would I secretly be?' },
+  { emoji: '🍕', text: 'Knowing me, what pizza topping would I be?' },
+  { emoji: '🎵', text: 'Knowing me, what music genre am I?' },
+  { emoji: '🏙️', text: 'Knowing me, which city in the world would I be?' },
+  { emoji: '🦸', text: 'Knowing me, what superpower would I have?' },
+  { emoji: '🌊', text: 'Knowing me, what natural disaster am I?' },
+  { emoji: '🧪', text: 'Knowing me, what element from the periodic table am I?' },
+  { emoji: '🎲', text: 'Knowing me, what board game am I?' },
+  { emoji: '🌙', text: 'Knowing me, what mythological creature am I?' },
+  { emoji: '💼', text: 'Knowing me, what job would I have in a medieval kingdom?' },
+  { emoji: '🌿', text: 'Knowing me, what plant would I be?' },
+  { emoji: '🎪', text: 'Knowing me, what circus act would I be?' },
+  { emoji: '🔮', text: 'Knowing me, what would my villain origin story be?' },
+  { emoji: '🎬', text: 'Knowing me, what movie genre would my life be?' },
+  { emoji: '🚗', text: 'Knowing me, what type of car would I be?' },
+  { emoji: '🧠', text: 'Knowing me, what cognitive bias best describes me?' },
+  { emoji: '🍷', text: 'Knowing me, what drink would I be?' },
+  { emoji: '🎩', text: 'Knowing me, what decade\'s fashion do I belong in?' },
+  { emoji: '🤖', text: 'Knowing me, which AI model would I be?' },
+  { emoji: '🏛️', text: 'Knowing me, which Greek god or goddess am I most like?' },
+  { emoji: '🗺️', text: 'Knowing me, what type of traveller am I?' },
 ];
+
+function pickRandom(n: number) {
+  return [...ALL_EXAMPLES].sort(() => Math.random() - 0.5).slice(0, n);
+}
 
 export function CreatePromptForm() {
   const router = useRouter();
@@ -19,6 +43,7 @@ export function CreatePromptForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingExample, setSubmittingExample] = useState<number | null>(null);
   const [error, setError] = useState('');
+  const [examples, setExamples] = useState(() => pickRandom(5));
 
   async function createDrop(promptBody: string) {
     const res = await fetch('/api/prompts', {
@@ -131,7 +156,7 @@ export function CreatePromptForm() {
 
       {/* Examples */}
       <div className="flex flex-col gap-2">
-        {EXAMPLES.map((ex, i) => (
+        {examples.map((ex, i) => (
           <button
             key={i}
             onClick={() => handleExample(ex.text, i)}
@@ -149,6 +174,13 @@ export function CreatePromptForm() {
             </span>
           </button>
         ))}
+        <button
+          onClick={() => setExamples(pickRandom(5))}
+          disabled={busy}
+          className="mt-1 text-[11px] font-mono uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--yellow)] transition-colors disabled:opacity-40 text-center w-full py-1"
+        >
+          ↻ shuffle examples
+        </button>
       </div>
     </div>
   );
