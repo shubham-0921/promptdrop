@@ -67,7 +67,7 @@ export default async function DropPage({ params }: PageProps) {
           <hr className="retro-divider flex-1" />
         </div>
 
-        <ResultsWall promptId={prompt.id} slug={slug} hideResults={prompt.hide_results} />
+        <ResultsWall promptId={prompt.id} slug={slug} promptBody={prompt.body} hideResults={prompt.hide_results} />
       </div>
     </div>
   );
